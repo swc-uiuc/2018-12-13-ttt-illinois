@@ -1,21 +1,22 @@
 ---
 layout: workshop      # DON'T CHANGE THIS.
 root: .               # DON'T CHANGE THIS EITHER.  (THANK YOU.)
-carpentry: "FIXME"    # what kind of Carpentry (must be either "dc" or "swc")
-venue: "FIXME"        # brief name of host site without address (e.g., "Euphoric State University")
-address: "FIXME"      # full street address of workshop (e.g., "Room A, 123 Forth Street, Blimingen, Euphoria")
-country: "FIXME"      # lowercase two-letter ISO country code such as "fr" (see https://en.wikipedia.org/wiki/ISO_3166-1)
-language: "FIXME"     # lowercase two-letter ISO language code such as "fr" (see https://en.wikipedia.org/wiki/ISO_639-1)
-latlng: "FIXME"       # decimal latitude and longitude of workshop venue (e.g., "41.7901128,-87.6007318" - use http://www.latlong.net/)
-humandate: "FIXME"    # human-readable dates for the workshop (e.g., "Feb 17-18, 2020")
-humantime: "FIXME"    # human-readable times for the workshop (e.g., "9:00 am - 4:30 pm")
-startdate: FIXME      # machine-readable start date for the workshop in YYYY-MM-DD format like 2015-01-01
-enddate: FIXME        # machine-readable end date for the workshop in YYYY-MM-DD format like 2015-01-02
-instructor: ["FIXME"] # boxed, comma-separated list of instructors' names as strings, like ["Kay McNulty", "Betty Jennings", "Betty Snyder"]
-helper: ["FIXME"]     # boxed, comma-separated list of helpers' names, like ["Marlyn Wescoff", "Fran Bilas", "Ruth Lichterman"]
-contact: ["fixme@example.org"]    # boxed, comma-separated list of contact email addresses for the host, lead instructor, or whoever else is handling questions, like ["marlyn.wescoff@example.org", "fran.bilas@example.org", "ruth.lichterman@example.org"]
-etherpad:             # optional: URL for the workshop Etherpad if there is one
-eventbrite:           # optional: alphanumeric key for Eventbrite registration, e.g., "1234567890AB" (if Eventbrite is being used)
+country: "us"      # lowercase two-letter ISO country code such as "fr" (see https://en.wikipedia.org/wiki/ISO_3166-1)
+language: "en"     # lowercase two-letter ISO language code such as "fr" (see https://en.wikipedia.org/wiki/ISO_639-1)
+humandate: "Dec 13–14, 2018"    # human-readable dates for the workshop (e.g., "Feb 17-18, 2020")
+humantime: "9:00 am–4:30 pm"    # human-readable times for the workshop (e.g., "9:00 am - 4:30 pm")
+startdate: 2018-12-13      # machine-readable start date for the workshop in YYYY-MM-DD format like 2015-01-01
+enddate: 2018-12-14        # machine-readable end date for the workshop in YYYY-MM-DD format like 2015-01-02
+instructor: ["Neal Davis","Elizabeth Wickes"] # boxed, comma-separated list of instructors' names as strings, like ["Kay McNulty", "Betty Jennings", "Betty Snyder"]
+helper: [""]     # boxed, comma-separated list of helpers' names, like ["Marlyn Wescoff", "Fran Bilas", "Ruth Lichterman"]
+contact: ["training@cse.illinois.edu"]    # boxed, comma-separated list of contact email addresses for the host, lead instructor, or whoever else is handling questions, like ["marlyn.wescoff@example.org", "fran.bilas@example.org", "ruth.lichterman@example.org"]
+etherpad: https://pad.carpentries.org/2018-12-13-ttt-illinois            # optional: URL for the workshop Etherpad if there is one
+eventbrite: 49961725867          # optional: alphanumeric key for Eventbrite registration, e.g., "1234567890AB" (if Eventbrite is being used)
+locations:
+  - venue: "University of Illinois"
+    address: "428 Armory, 505 E Armory Ave, Champaign, Illinois"
+    latlng: "40.1047489,-88.2341386"
+
 ---
 
 <!-- See instructions in the comments below for how to edit specific sections of this workshop template. -->
@@ -94,18 +95,38 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
   if the latitude and longitude of the workshop have been set.  You
   can use http://itouchmap.com/latlong.html to find the lat/long of an
   address.
--->
-{% if page.latlng %}
-<p id="where">
-  <strong>Where:</strong>
-  {{page.address}}.
-  Get directions with
-  <a href="//www.openstreetmap.org/?mlat={{page.latlng | replace:',','&mlon='}}&zoom=16">OpenStreetMap</a>
-  or
-  <a href="//maps.google.com/maps?q={{page.latlng}}">Google Maps</a>.
-</p>
-{% endif %}
+  -->
+<h3 id="where">Where</h3>
 
+{% assign inperson = "false" %}
+{% for loc in page.locations %}
+
+{% capture online %}{{ loc.venue | downcase }}{% endcapture %}
+
+<h4>{{ loc.venue }}</h4>
+
+{% if online == "online" %}
+
+This is an online event. We will meet using the online videoconference software Zoom. You will need to <a href="https://zoom.us/download">download and install their client</a> to connect with your instructors. The link to use for this event is <{{ loc.address }}>.
+
+{% else %}
+{% assign inperson = "true" %}
+{{ loc.address }} {% if loc.latlng %} Get directions with
+    <a href="//www.openstreetmap.org/?mlat={{loc.latlng | replace:',','&mlon='}}&zoom=16">OpenStreetMap</a>
+    or
+    <a href="//maps.google.com/maps?q={{loc.latlng}}">Google Maps</a>. {% endif %}
+
+{% endif %}
+{% endfor %}
+
+{% if inperson == "true" %}
+
+<h4 id="accessibility">Accessibility</h4>
+
+We are committed to making this workshop
+accessible to everybody.
+The workshop organisers have checked that:
+||||||| merged common ancestors
 <p>
   <strong>Requirements:</strong> Participants should bring a laptop
   that is Internet connected and has a functioning browser.  If you
@@ -125,31 +146,51 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
 </p>
 <p align="center">
   <em>
-    All participants are required to abide by The Carpentries'
-    <a href="{{ site.swc_site }}/conduct/">Code of Conduct</a>.
+    All participants are required to abide by Software
+    Carpentry's <a href="{{ site.swc_site }}/conduct/">Code of Conduct</a>.
   </em>
 </p>
 
-<p id="accessibility">
-  <strong>Accessibility:</strong> We are committed to making this workshop
-  accessible to everybody.
-  The workshop organisers have checked that:
-</p>
 <ul>
   <li>The room is wheelchair / scooter accessible.</li>
   <li>Accessible restrooms are available.</li>
 </ul>
-<p>
+
   Materials will be provided in advance of the workshop and
   large-print handouts are available if needed by notifying the
   organizers in advance.  If we can help making learning easier for
   you (e.g. sign-language interpreters, lactation facilities) please
   please get in touch (using contact details below) and we will
   attempt to provide them.
-</p>
 
-<p id="contact">
-  <strong>Contact</strong>:
+{% endif %}
+
+<h3>Requirements</h3>
+
+Participants should bring a laptop that is Internet connected and has a
+  functioning browser. If you have it, a device for recording audio and video
+  (mobile phones and laptops are OK) is useful as throughout the two days, we
+  are going to record one another teaching in pairs or threes. It does not have
+  to be high-quality, but it should be good enough that you can understand what
+  someone is saying.
+
+  Please note that after this course is over, you will be asked to do
+  three short follow-up exercises online in order to finish qualifying
+  as an instructor: the details are available at
+  <a href="{{ site.training_site }}/checkout/">{{ site.training_site }}/checkout/</a>.
+  If you have any questions about the workshop, the reading material,
+  or anything else, please get in touch.
+
+
+<h3>Code of Conduct</h3>
+
+All participants are required to abide by Software Carpentry's <a href="{{
+site.swc_site }}/conduct/">Code of Conduct</a>.
+
+
+
+<h3 id="contact">Contact</h3>
+
   Please email
   {% if page.contact %}
     {% for contact in page.contact %}
@@ -224,14 +265,11 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
 
 <h2 id="materials" name="materials">Training Materials and Schedule</h2>
 
+<!--
 <p>
   Please see <a href="{{ site.training_site }}">this site</a> for course material and tentative schedule.
 </p>
-
-
-<hr/>
-
-<!--
+-->
 
 <div class="row">
   <div class="col-md-6">
@@ -240,13 +278,13 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
       <tr> <td>09:00</td> <td>Welcome </td> </tr>
       <tr> <td>09:15</td> <td>How Learning Works: The Importance of Practice </td> </tr>
       <tr> <td>10:20</td> <td>How Learning Works: Expertise and Instruction </td> </tr>
-      <tr> <td>11:10</td> <td>Morning Coffee </td> </tr>
+      <tr> <td>11:10</td> <td>Morning Break </td> </tr>
       <tr> <td>11:25</td> <td>How Learning Works: Working Memory and Cognitive Load </td> </tr>
       <tr> <td>12:15</td> <td>Building Teaching Skill: Getting Feedback </td> </tr>
-      <tr> <td>12:35</td> <td>Lunch </td> </tr>
+      <tr> <td>12:35</td> <td>Lunch Break </td> </tr>
       <tr> <td>13:35</td> <td>Creating a Positive Learning Environment: Motivation and Demotivation </td> </tr>
       <tr> <td>14:40</td> <td>Creating a Positive Learning Environment: Mindset </td> </tr>
-      <tr> <td>15:20</td> <td>Afternoon Coffee </td> </tr>
+      <tr> <td>15:20</td> <td>Afternoon Break </td> </tr>
       <tr> <td>15:35</td> <td>Building Teaching Skill: The Importance of Practice </td> </tr>
       <tr> <td>16:45</td> <td>Wrap-Up and Homework for Tomorrow </td> </tr>
       <tr> <td>17:05</td> <td>Finish </td> </tr>
@@ -258,20 +296,18 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
       <tr> <td>09:00</td> <td>Welcome Back </td> </tr>
       <tr> <td>09:10</td> <td>Building Teaching Skill: Lesson Study </td> </tr>
       <tr> <td>10:05</td> <td>Building Teaching Skill: Live Coding </td> </tr>
-      <tr> <td>11:05</td> <td>Morning Coffee </td> </tr>
+      <tr> <td>11:05</td> <td>Morning Break </td> </tr>
       <tr> <td>11:20</td> <td>Building Teaching Skill: Performance Revised </td> </tr>
-      <tr> <td>12:00</td> <td>Lunch </td> </tr>
+      <tr> <td>12:00</td> <td>Lunch Break </td> </tr>
       <tr> <td>13:00</td> <td>The Carpentries: Workshop Introductions </td> </tr>
       <tr> <td>14:10</td> <td>The Carpentries: How We Operate </td> </tr>
-      <tr> <td>15:15</td> <td>Afternoon Coffee </td> </tr>
+      <tr> <td>15:15</td> <td>Afternoon Break </td> </tr>
       <tr> <td>15:30</td> <td>The Carpentries: Teaching Practices </td> </tr>
       <tr> <td>16:00</td> <td>Afternoon Wrap-Up </td> </tr>
       <tr> <td>16:45</td> <td>Finish </td> </tr>
     </table>
   </div>
 </div>
-
--->
 
 <!--
   ETHERPAD
