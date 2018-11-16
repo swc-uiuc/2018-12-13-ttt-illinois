@@ -126,6 +126,30 @@ This is an online event. We will meet using the online videoconference software 
 We are committed to making this workshop
 accessible to everybody.
 The workshop organisers have checked that:
+||||||| merged common ancestors
+<p>
+  <strong>Requirements:</strong> Participants should bring a laptop
+  that is Internet connected and has a functioning browser.  If you
+  have it, a device for recording audio and video (mobile phones and
+  laptops are OK) is useful as throughout the two days, we are going
+  to record one another teaching in pairs or threes.  It does not have
+  to be high-quality, but it should be good enough that you can
+  understand what someone is saying.
+</p>
+<p>
+  Please note that after this course is over, you will be asked to do
+  three short follow-up exercises online in order to finish qualifying
+  as an instructor: the details are available at
+  <a href="{{ site.training_site }}/checkout/">{{ site.training_site }}/checkout/</a>.
+  If you have any questions about the workshop, the reading material,
+  or anything else, please get in touch.
+</p>
+<p align="center">
+  <em>
+    All participants are required to abide by Software
+    Carpentry's <a href="{{ site.swc_site }}/conduct/">Code of Conduct</a>.
+  </em>
+</p>
 
 <ul>
   <li>The room is wheelchair / scooter accessible.</li>
@@ -224,6 +248,21 @@ site.swc_site }}/conduct/">Code of Conduct</a>.
 
 <hr/>
 
+<h2 id="surveys">Surveys</h2>
+
+<h3 id="pre_workshop_survey">Pre-training survey</h3>
+
+<p>
+  Before attending the workshop, please fill out <a href="{{ site.instructor_pre_survey }}{{ site.github.project_title }}">our pre-training survey</a>.
+</p>
+
+<h3 id ="post_workshop_survey">Post-training survey</h3>
+
+<p>
+  After attending the workshop, please fill out <a href="{{ site.instructor_post_survey }}{{ site.github.project_title }}"> our post-training survey</a>
+</p>
+
+
 <h2 id="materials" name="materials">Training Materials and Schedule</h2>
 
 <!--
@@ -291,9 +330,5 @@ site.swc_site }}/conduct/">Code of Conduct</a>.
   <strong>Etherpad:</strong> <a href="{{page.etherpad}}">{{page.etherpad}}</a>.
   <br/>
   We will use this Etherpad for chatting, taking notes, and sharing URLs and bits of code.
-</p>
-
-<p>
-  After the workshop, please fill out <a href="https://carpentries.github.io/instructor-training/06-feedback/#surveys">our post-assessment survey</a>.
 </p>
 {% endif %}
